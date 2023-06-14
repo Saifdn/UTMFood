@@ -1,4 +1,5 @@
-// AHMAD SAIFUDIN
+// AHMAD SAIFUDIN BIN NARDI SUSANTO
+// LIO KOCK HOCK
 
 #include <iostream>
 #include <fstream>

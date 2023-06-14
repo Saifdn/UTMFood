@@ -2,7 +2,7 @@
 // LIO KOCK HOCK
 // DANIAL HAKIM BIN ZAHARI
 // PROJECT UTM FOOD
-// updated
+// updated 2.0
 
 #include <iostream>
 #include <fstream>

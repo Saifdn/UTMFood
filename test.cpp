@@ -9,6 +9,8 @@
 #include <string>
 #include <iomanip>
 
+#define DATA 6
+
 using namespace std;
 
 class Account{
@@ -21,12 +23,14 @@ class Account{
         string phone;
     public:
         Account(){};
+        void setName(string _name) {name = _name;}
         string getUsername() {return username;}
         string getPassword() {return password;}
         string getName() {return name;}
         string getAddress() {return address;}
         string getEmail() {return email;}
         string getPhone() {return phone;}
+
         bool authenticate (string username, string password){
             fstream file, file2;
             string un, pw;
@@ -50,10 +54,19 @@ class Account{
 
             if(authenticate(un, pw) == true){
                 cout<<"You have succesfully sign in"<<endl;
+                fstream file;
+                file.open("Vendor/"+un+".txt", ios::in);
+                getline(file, username);
+                getline(file, password);
+                getline(file, name);
+                getline(file, address);
+                getline(file, email);
+                getline(file, phone);
             }
             else{
                 cout<<"The password is incorrect"<<endl;
             }
+
         }
         void signUp(){
             cin.ignore();
@@ -101,7 +114,6 @@ class Customer: public Account{
 class Vendor: public Account{
     public:
         Vendor(){}
-
         Vendor(string _username, string _password, string _name, string _address, string _email, string _phone){
             username = _username;
             password = _password;
@@ -136,11 +148,11 @@ class MenuItem{
         Vendor* vendor;
         fstream file;
     public:
-        MenuItem(Vendor *_vendor){
+        MenuItem(Vendor _vendor){
             id = new int[50];
             foodName = new string[50];
             price = new float[50];
-            vendor = _vendor;
+            vendor = &_vendor;
         }
         ~MenuItem(){
             delete [] id;
@@ -197,7 +209,7 @@ class MenuItem{
 
         void VendorMenuInput(){
 
-            cout<<"VENDOR: "<<vendor->getName()<<endl;
+            cout<<"VENDOR: "<<vendor->getName()<<endl; //check
             char choice = 'y';
             file.open("Menu/"+vendor->getName()+".txt", ios::out);
             for(int i = 0 ; choice == 'y' || choice == 'Y'; i++)
@@ -275,9 +287,10 @@ int main(){
         <<"Enter choice: ";
     cin>>choice;
 
-    Account *customer = new Customer();
-    Account *vendor = new Vendor();
-
+    Account *acc;
+    Customer customer;
+    Vendor vendor;
+    
     if(choice == 1){
         cout<<"|| Menu"<<endl
         <<"1. Customer"<<endl
@@ -285,12 +298,16 @@ int main(){
         <<"Enter choice: ";
         cin>>choice;
         if(choice == 1){
-            customer->createAccount();
+            acc = &customer;
+            acc->createAccount();
         }
         else{
-            vendor->createAccount();
+            acc = &vendor;
+            acc->createAccount();
         }
     }
+
+    
     else{
         cout<<"|| Menu"<<endl
         <<"1. Customer"<<endl
@@ -298,11 +315,11 @@ int main(){
         <<"Enter choice: ";
         cin>>choice;
         if(choice == 1){
-            customer->logIn();
+            customer.logIn();
         }
         else{
-            vendor->logIn();
-            MenuItem menuItem(static_cast<Vendor*>(vendor));
+            vendor.logIn();
+            MenuItem menuItem(vendor);
             menuItem.VendorMenuInput();
             menuItem.displayMenu();
         }
@@ -311,7 +328,7 @@ int main(){
     // OrderItem orderitem(menuitem);
     // orderitem.askUser();
 
-    delete customer;
-    delete vendor;
+    // delete customer;
+    // delete vendor;
     return 0;
 }

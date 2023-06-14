@@ -1,0 +1,2 @@
+1,nasi lemak,2
+2,nasi kandar,6.5

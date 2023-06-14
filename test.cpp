@@ -227,6 +227,10 @@ class MenuItem{
                     <<price[i]<<endl;
             }
             file.close();
+
+            file.open("Menu/listVendor.txt",ios::app);
+            file<<vendor->getName()<<endl;
+            file.close();
         }
 
 };
@@ -276,27 +280,80 @@ class Order{
 
 };
 
+void displayLogo(){
+    cout<<"+===============================================================+"<<endl
+        <<"|   _   _   _____   __    __    _____   _____   _____   ____    |"<<endl
+        <<"|  | | | | |_   _| |  \\  /  |  /  ___| /  _  \\ /  _  \\ |  _ \\   |"<<endl
+        <<"|  | | | |   | |   |   \\/   |  | |__   | | | | | | | | | | | |  |"<<endl
+        <<"|  | |_| |   | |   | |\\  /| |  |  __|  | |_| | | |_| | | |_| |  |"<<endl
+        <<"|  |_____|   |_|   |_| \\/ |_|  |_|     \\_____/ \\_____/ |____/   |"<<endl
+        <<"|                                                               |"<<endl
+        <<"+===============================================================+"<<endl
+        <<endl;
+}
+
+void displayLogo2(){
+    cout << "                     ,----,    " << endl;
+    cout << "                   ,/   .`|        ____                ,----..       ,----..           " << endl;
+    cout << "                 ,`   .'  :      ,'  , `.    ,---,.   /   /   \\     /   /   \\      ,---, " << endl;
+    cout << "         ,--,  ;    ;     /   ,-+-,.' _ |  ,'  .' |  /   .     :   /   .     :   .'  .' `\\ " << endl;
+    cout << "       ,'_ /|.____,/    ,' ,-+-. ;   , ||,---.'   | .   /   ;.  \\ .   /   ;.  \\,---.'     \\ " << endl;
+    cout << "  .--. |  | :|    :     | ,--.'|'   |  ;||   |   .'.   ;   /  ` ;.   ;   /  ` ;|   |  .`\\  | " << endl;
+    cout << ",'_ /| :  . |;    |.';  ;|   |  ,', |  '::   :  :  ;   |  ; \\ ; |;   |  ; \\ ; |:   : |  '  | " << endl;
+    cout << "|  ' | |  . .`----'  |  ||   | /  | |  ||:   |  |-,|   :  | ; | '|   :  | ; | '|   ' '  ;  : " << endl;
+    cout << "|  | ' |  | |    '   :  ;'   | :  | :  |,|   :  ;/|.   |  ' ' ' :.   |  ' ' ' :'   | ;  .  | " << endl;
+    cout << ":  | | :  ' ;    |   |  ';   . |  ; |--' |   |   .''   ;  \\; /  |'   ;  \\; /  ||   | :  |  ' " << endl;
+    cout << "|  ; ' |  | '    '   :  ||   : |  | ,    '   :  '   \\   \\  ',  /  \\   \\  ',  / '   : | /  ;  " << endl;
+    cout << ":  | : ;  ; |    ;   |.' |   : '  |/     |   |  |    ;   :    /    ;   :    /  |   | '` ,/   " << endl;
+    cout << "'  :  `--'   \\   '---'   ;   | |`-'      |   :  \\     \\   \\ .'      \\   \\ .'   ;   :  .'    " << endl;
+    cout << ":  ,      .-./           |   ;/          |   | ,'      `---`         `---`     |   ,.'      " << endl;
+    cout << " `--`----'               '---'           `----'                                '---'          " << endl;
+}
+
+void displayLogo3(){
+    cout << "ooooo     ooo ooooooooooooo ooo        ooooo oooooooooooo   .oooooo.     .oooooo.   oooooooooo." << endl;
+    cout << "`888'     `8' 8'   888   `8 `88.       .888' `888'     `8  d8P'  `Y8b   d8P'  `Y8b  `888'   `Y8b" << endl;
+    cout << " 888       8       888       888b     d'888   888         888      888 888      888  888      888" << endl;
+    cout << " 888       8       888       8 Y88. .P  888   888oooo8    888      888 888      888  888      888" << endl;
+    cout << " 888       8       888       8  `888'   888   888    \"    888      888 888      888  888      888" << endl;
+    cout << " `88.    .8'       888       8    Y     888   888         `88b    d88' `88b    d88'  888     d88'" << endl;
+    cout << "   `YbodP'        o888o     o8o        o888o o888o         `Y8bood8P'   `Y8bood8P'  o888bood8P'" << endl;
+}
+
+void displayLogo4(){
+    cout << " _   _ _____ __  __ _____ ___   ___  ____  " << endl;
+    cout << "| | | |_   _|  \\/  |  ___/ _ \\ / _ \\|  _ \\ " << endl;
+    cout << "| | | | | | | |\\/| | |_ | | | | | | | | | |" << endl;
+    cout << "| |_| | | | | |  | |  _|| |_| | |_| | |_| |" << endl;
+    cout << " \\___/  |_| |_|  |_|_|   \\___/ \\___/|____/ " << endl;
+}
+
 
 int main(){
 
+    Account *acc;
+    Customer customer;
+    Vendor vendor;
+    // MenuItem MenuItem();
     int choice;
 
+    displayLogo4();
     cout<<"|| Menu"<<endl
         <<"1. Registration"<<endl
         <<"2. Log In"<<endl
         <<"Enter choice: ";
     cin>>choice;
-
-    Account *acc;
-    Customer customer;
-    Vendor vendor;
     
     if(choice == 1){
-        cout<<"|| Menu"<<endl
-        <<"1. Customer"<<endl
-        <<"2. Vendor"<<endl
-        <<"Enter choice: ";
+
+        system("CLS");
+        displayLogo4();
+        cout<<"|| Registration"<<endl
+            <<"1. Customer"<<endl
+            <<"2. Vendor"<<endl
+            <<"Enter choice: ";
         cin>>choice;
+
         if(choice == 1){
             acc = &customer;
             acc->createAccount();
@@ -309,11 +366,15 @@ int main(){
 
     
     else{
-        cout<<"|| Menu"<<endl
-        <<"1. Customer"<<endl
-        <<"2. Vendor"<<endl
-        <<"Enter choice: ";
+
+        system("CLS");
+        displayLogo4();
+        cout<<"|| Sign In"<<endl
+            <<"1. Customer"<<endl
+            <<"2. Vendor"<<endl
+            <<"Enter choice: ";
         cin>>choice;
+
         if(choice == 1){
             customer.logIn();
         }

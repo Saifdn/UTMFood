@@ -1,0 +1,2 @@
+1,Nasi Lemak,6
+2,Nasi Kandar,6.5

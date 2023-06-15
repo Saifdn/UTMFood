@@ -203,7 +203,7 @@ class MenuItem{
             delete [] price;
         }
 
-        string getFoodName(){return *foodName;}
+        string getFoodName(int i){return foodName[i];}
 
         int getFoodNum(){return foodNum;}
 
@@ -289,38 +289,53 @@ class MenuItem{
 class OrderItem
 {
     private:
-        float totalPayment = 0;
+        float totalPayment=0;
+        string FoodOrdered[100];
+        float FoodPrice[100];
         MenuItem* menuItem;
         
     public:
-        OrderItem(MenuItem menuitem)
+        OrderItem(MenuItem *menuitem)
         {
-            menuItem = &menuitem;
+            menuItem = menuitem;
         }
 
-        void calculateTotalPayment(int i){
+        void calculateTotalPayment(int i, int count){
             totalPayment = totalPayment + menuItem->getPrice(i);
+            FoodOrdered[count] = menuItem->getFoodName(i);
+            FoodPrice[count] = menuItem->getPrice(i);
         }
 
-        void FoodSelection(int id)
+        void FoodSelection(int id, int count)
         {
             for(int i=0; i<menuItem->getFoodNum(); i++)
             {
                 if(id == i+1)
                 {
-                    calculateTotalPayment(i);
+                    calculateTotalPayment(i, count);
                 }
             }
         }
 
         void AskOrder()
         {
-            int id;
-            cout<<"Enter the id of your desired food!!"<<endl;
-            cin>>id;
-            FoodSelection(id);
-
-            cout<<"\nTotal payment = "<<totalPayment;
+            int id, count=0;
+            cout<<"0 Exit"<<endl;
+            do
+            { 
+                cout<<"\nEnter the id of your desired food!!"<<endl;
+                cin>>id;
+                if(id!=0)
+                    FoodSelection(id, count);
+                count++;
+            }while(id!=0);
+            
+            cout<<"\nHere is your receipt! Thank You!"<<endl;
+            for(int i=0; i<count-1; i++)
+            {
+                cout<<i+1<<". "<<FoodOrdered[i]<<"   RM"<<FoodPrice[i]<<endl;
+            }
+            cout<<"Total payment = "<<totalPayment;
         }
 };
 
@@ -433,8 +448,8 @@ int main(){
             // Display menu available from the vendor
             MenuItem menuitem(vendor);
             menuitem.displayMenu();
-            // OrderItem orderitem(menuitem);
-            // orderitem.AskOrder();
+            OrderItem orderitem(&menuitem);
+            orderitem.AskOrder();
         }
         else{
             vendor.logIn();

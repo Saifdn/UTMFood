@@ -15,4 +15,4 @@ During the process of coding i faced some errors i'm clueless about, where it sa
 2. use of deleted function 'MenuItem::MenuItem(const MenuItem&)' Ln446 in test2.cpp
 
 15 june 2023/thursday(11.00pm):
-the error have successfully been fixed
+the error have successfully been fixed by using passing via pointer of menuitem

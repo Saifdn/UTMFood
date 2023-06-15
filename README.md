@@ -15,4 +15,5 @@ During the process of coding i faced some errors i'm clueless about, where it sa
 2. use of deleted function 'MenuItem::MenuItem(const MenuItem&)' Ln446 in test2.cpp
 
 15 june 2023/thursday(11.00pm):
-the error have successfully been fixed by using passing via pointer of menuitem
+1. the error have successfully been fixed by using passing via pointer of menuitem
+2. the program now are able to ask multiple order from customer and display all the food ordered and the price of each of the food ordered. Lastly display total payment.

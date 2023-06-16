@@ -270,19 +270,32 @@ class MenuItem{
             fstream file;
             string line;
             int vendorNum = 0;
+            bool isVendorNameExists = false;
 
+            // UPDATE: Prevent listing vendor name twice
             file.open("Menu/listVendor.txt", ios::in);
-            while(getline(file, line)){
-                vendorNum++;
+            while (getline(file, line)) {
+                // Check if the vendor name already exists in the file
+                if (line.find(vendor->getName()) != string::npos) {
+                    isVendorNameExists = true;
+                    break;
+                }
             }
             file.close();
 
-            file.open("Menu/listVendor.txt", ios::app);
-            file<<vendorNum+1<<" "<<vendor->getName()<<endl;
-            file.close();
-        }
+            if(!isVendorNameExists){
+                file.open("Menu/listVendor.txt", ios::in);
+                while(getline(file, line)){
+                    vendorNum++;
+                }
+                file.close();
 
-        
+                file.open("Menu/listVendor.txt", ios::app);
+                file<<vendorNum+1<<" "<<vendor->getName()<<endl;
+                file.close();
+            }
+            
+        }
 
 };
 
@@ -339,12 +352,37 @@ class OrderItem
         }
 };
 
-class Order{
-    private:
-        OrderItem orderItem;
-    public:
+class Order {
+private:
+    int order_id;
+    string items[10];  // Assuming a maximum of 10 items per order
+    string customer;
+    bool is_paid;
+    bool is_fulfilled;
+    int num_items;     // Track the number of items in the order
 
+public:
+    Order(){
+
+    }
+
+    void mark_as_paid() {
+        is_paid = true;
+    }
+
+    void mark_as_fulfilled() {
+        is_fulfilled = true;
+    }
+
+    void generate_receipt() {
+        // Generate receipt logic goes here
+    }
+
+    void notify_vendor() {
+        // Vendor notification logic goes here
+    }
 };
+
 
 void displayLogo(){
     cout<<"+===============================================================+"<<endl

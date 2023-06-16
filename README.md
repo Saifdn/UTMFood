@@ -17,3 +17,7 @@ During the process of coding i faced some errors i'm clueless about, where it sa
 15 june 2023/thursday(11.00pm):
 1. the error have successfully been fixed by using passing via pointer of menuitem
 2. the program now are able to ask multiple order from customer and display all the food ordered and the price of each of the food ordered. Lastly display total payment.
+
+16 June 2023/Friday(12.00pm):
+1. Updated the StoreListVendor, so that the program can't list the vendor again more than once.
+2. Created an empty class of Order

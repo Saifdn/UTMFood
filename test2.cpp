@@ -66,7 +66,6 @@ class Account{
             else{
                 cout<<"The password is incorrect"<<endl;
             }
-
         }
         void signUp(){
             cin.ignore();
@@ -496,8 +495,5 @@ int main(){
             menuItem.displayMenu();
         }
     }
-
-    // delete customer;
-    // delete vendor;
     return 0;
 }

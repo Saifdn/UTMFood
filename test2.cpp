@@ -437,7 +437,6 @@ int main(){
     Account *acc;
     Customer customer;
     Vendor vendor;
-    // MenuItem MenuItem();
     int choice;
 
     displayLogo4();

@@ -1,3 +1,3 @@
-1,nasi lemak,5.2
-2,nasi goreng,6.5
-3,nasi buttermilk,7.5
+1,nasi lemak,2.5
+2,nasi goreng,4.5
+3,nasi buttermilk chicken,6.5

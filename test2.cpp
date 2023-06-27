@@ -8,11 +8,13 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <ctime>
 
 #define DATA 6
 
 using namespace std;
 
+void displayLogo4();
 class Account{
     protected:
         string username;
@@ -46,15 +48,19 @@ class Account{
                 return 0;
         }
         void logIn(){
+            A:
             string un, pw;
-            cout<<"Enter username: ";
+            cout<<"*******************************\n"
+                <<"        ACCOUNT SIGN IN        \n"
+                <<"-------------------------------\n";
+            cout<<"Username: ";
             cin>>un;
-            cout<<"Enter password: ";
+            cout<<"Password: ";
             cin>>pw;
 
             if(authenticate(un, pw) == true){
 
-                cout<<"You have succesfully sign in"<<endl;
+                cout<<"\n*You have succesfully sign in!\n"<<endl;
                 fstream file;
                 file.open("Vendor/"+un+".txt", ios::in);
 
@@ -68,10 +74,14 @@ class Account{
 
             }
             else{
-                cout<<"The password is incorrect"<<endl;
+                cout<<"*The password is incorrect"<<endl;
+                goto A;
             }
         }
         void signUp(){
+            cout<<"**********************************\n"
+                <<"        CREATE NEW ACCOUNT        \n"
+                <<"----------------------------------\n";
             cin.ignore();
             cout<<"Enter username: ";
             getline(cin, username);
@@ -177,10 +187,14 @@ class Vendor: public Account{
         }
 
         void StallSelection(){
+            system("CLS");
+            displayLogo4();
+            cout<<"********************************\n"
+                <<"        AVAILABLE VENDOR        \n"
+                <<"--------------------------------\n";
             string* result = DisplayVendor();
 
-            cout<<"These are the Stall only stall available in UTM"<<endl;
-            cout<<"Enter your choice: "<<endl;
+            cout<<"*Please Enter Vendor's ID of Your Choice!: ";
             int i;
             cin>>i;
 
@@ -240,12 +254,19 @@ class MenuItem{
             }
             file.close();
 
-            for(int i = 0; i < foodNum; i++){
+            system("CLS");
+            displayLogo4();
+            cout<<"****************************************\n"
+                <<"                MENU LIST               \n"
+                <<"----------------------------------------\n";
+            for(int i = 0; i < foodNum; i++){ 
                 cout<<left
                     <<setw(2)<<id[i]
-                    <<setw(20)<<foodName[i]
+                    <<setw(30)<<foodName[i]
+                    <<right
+                    <<setw(3)<<"RM "
                     <<fixed<<setprecision(2)
-                    <<setw(6)<<price[i]<<endl;
+                    <<setw(5)<<price[i]<<endl;
             }
         }
 
@@ -254,6 +275,11 @@ class MenuItem{
             // cout<<"VENDOR: "<<vendor->getName()<<endl; //check
             char choice = 'y';
             file.open("Menu/"+vendor->getName()+".txt", ios::out);
+            system("CLS");
+            displayLogo4();
+            cout<<"**********************************\n"
+                <<"          MENU MANAGEMENT         \n"
+                <<"----------------------------------\n";
             for(int i = 0 ; choice == 'y' || choice == 'Y'; i++)
             {
                 cin.ignore();
@@ -263,6 +289,7 @@ class MenuItem{
                 cin>>price[i];
                 cout<<"Do you want to enter again (y/n): ";
                 cin>>choice;
+                cout<<endl;
 
                 file<<i+1<<","
                     <<foodName[i]<<","
@@ -315,6 +342,7 @@ class OrderItem
         string FoodOrdered[100];
         float FoodPrice[100];
         MenuItem* menuItem;
+        int count=0;
         
     public:
         OrderItem(MenuItem *menuitem)
@@ -341,25 +369,57 @@ class OrderItem
 
         void AskOrder()
         {
-            int id, count=0;
+            int id;
             cout<<"0 Exit"<<endl;
+            
             do
-            { 
-                cout<<"\nEnter the id of your desired food!!"<<endl;
+            {
+                cout<<"Enter The ID of Your Desired Food: ";
                 cin>>id;
                 if(id!=0)
                     FoodSelection(id, count);
                 count++;
             }while(id!=0);
-            
-            cout<<"\nHere is your receipt! Thank You!"<<endl;
-            for(int i=0; i<count-1; i++)
-            {
-                cout<<i+1<<". "<<FoodOrdered[i]<<"   RM"<<FoodPrice[i]<<endl;
-            }
-            cout<<"Total payment = "<<totalPayment;
         }
+
+        friend ostream &operator<<(ostream& out, OrderItem orderitem);
 };
+
+ostream &operator<<(ostream& out, OrderItem orderitem){
+    
+    time_t tt;
+    struct tm*ti;
+    time(&tt);
+    ti=localtime(&tt);
+
+    system("CLS");
+    displayLogo4();
+    out<<"\nHere is your receipt! Thank You!"<<endl;
+
+    out <<endl
+        <<"****************************************\n"
+        <<"              ORDER RECEIPT             \n"
+        <<"----------------------------------------\n"
+        <<asctime(ti)<<endl<<endl;
+
+    for(int i = 0; i < orderitem.count-1; i++)
+    {   
+        out <<left
+            <<setw(2)<<i+1
+            <<setw(30)<<orderitem.FoodOrdered[i]
+            <<right
+            <<setw(3)<<"RM "
+            <<setw(5)<<orderitem.FoodPrice[i]
+            <<endl;
+    }
+    out <<setw(32)<<"Total: "
+        <<setw(3)<<"RM "
+        <<setw(5)<<orderitem.totalPayment<<endl;
+
+    out <<"----------------------------------------\n\n"
+        <<"****************************************\n";
+
+}
 
 void displayLogo4(){
     cout << "+=============================================+"<<endl;
@@ -381,9 +441,9 @@ int main(){
 
     system("CLS");
     displayLogo4();
-    cout<<"+==================+"<<endl
-        <<" Menu"<<endl
-        <<"+==================+"<<endl
+    cout<<"+===================+"<<endl
+        <<"      Main Menu"<<endl
+        <<"+===================+"<<endl
         <<"1. Registration"<<endl
         <<"2. Log In"<<endl
         <<"Enter choice: ";
@@ -394,7 +454,7 @@ int main(){
         system("CLS");
         displayLogo4();
         cout<<"+==================+"<<endl
-            <<" Registration"<<endl
+            <<"    Registration"<<endl
             <<"+==================+"<<endl
             <<"1. Customer"<<endl
             <<"2. Vendor"<<endl
@@ -402,10 +462,14 @@ int main(){
         cin>>choice;
 
         if(choice == 1){
+            system("CLS");
+            displayLogo4();
             acc = &customer;
             acc->createAccount();
         }
         else{
+            system("CLS");
+            displayLogo4();
             acc = &vendor;
             acc->createAccount();
         }
@@ -417,7 +481,7 @@ int main(){
         system("CLS");
         displayLogo4();
         cout<<"+==================+"<<endl
-            <<" Sign In"<<endl
+            <<"      Sign In"<<endl
             <<"+==================+"<<endl
             <<"1. Customer"<<endl
             <<"2. Vendor"<<endl
@@ -425,6 +489,8 @@ int main(){
         cin>>choice;
 
         if(choice == 1){
+            system("CLS");
+            displayLogo4();
             customer.logIn();
             // Display vendor available in utmfood
             vendor.StallSelection();
@@ -433,8 +499,11 @@ int main(){
             menuitem.displayMenu();
             OrderItem orderitem(&menuitem);
             orderitem.AskOrder();
+            cout<<orderitem;
         }
         else{
+            system("CLS");
+            displayLogo4();
             vendor.logIn();
             MenuItem menuItem(vendor);
             menuItem.VendorMenuInput();

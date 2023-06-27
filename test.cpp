@@ -328,6 +328,41 @@ void displayLogo4(){
     cout << " \\___/  |_| |_|  |_|_|   \\___/ \\___/|____/ " << endl;
 }
 
+ostream &operator<<(ostream& out, OrderItem orderitem){
+    
+    time_t tt;
+    struct tm*ti;
+    time(&tt);
+    ti=localtime(&tt);
+
+    out<<"\nHere is your receipt! Thank You!"<<endl;
+    for(int i = 0; i < orderitem.count-1; i++)
+    {   
+        out<<asctime(ti)<<endl;
+        out<<i+1<<". "<<orderitem.FoodOrdered[i]<<"   RM"<<orderitem.FoodPrice[i]<<endl;
+    }
+    out<<"Total payment = "<<orderitem.totalPayment;
+
+    out <<"*****************************\n"
+        <<"        ORDER RECEIPT        \n"
+        <<"-----------------------------\n"
+        <<asctime(ti)<<endl<<endl;
+
+    for(int i = 0; i < orderitem.count-1; i++)
+    {   
+        out <<left
+            <<setw(2)<<i+1
+            <<setw(20)<<orderitem.FoodOrdered[i]
+            <<right
+            <<setw(3)<<"RM "
+            <<setw(6)<<orderitem.FoodPrice[i]
+            <<endl<endl;
+    }
+
+    out <<"-----------------------------\n\n"
+        <<"*****************************\n";
+
+}
 
 int main(){
 

@@ -1,0 +1,2 @@
+1,nasi lemak,5.5
+2,nasi kerabu,6.5

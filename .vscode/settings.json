@@ -5,7 +5,8 @@
         "istream": "cpp",
         "ostream": "cpp",
         "*.tcc": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "iosfwd": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

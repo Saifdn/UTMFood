@@ -53,15 +53,19 @@ class Account{
             cin>>pw;
 
             if(authenticate(un, pw) == true){
+
                 cout<<"You have succesfully sign in"<<endl;
                 fstream file;
                 file.open("Vendor/"+un+".txt", ios::in);
+
                 getline(file, username);
                 getline(file, password);
                 getline(file, name);
                 getline(file, address);
                 getline(file, email);
                 getline(file, phone);
+                file.close();
+
             }
             else{
                 cout<<"The password is incorrect"<<endl;
@@ -100,6 +104,7 @@ class Customer: public Account{
             signUp();
             fstream file;
             file.open("Customer/"+username+".txt", ios::out);
+
             file<<username<<endl
                 <<password<<endl
                 <<name<<endl
@@ -140,15 +145,19 @@ class Vendor: public Account{
             fstream file;
             string line;
             int vendorNum = 0;
+
             file.open("Menu/listVendor.txt", ios::in);
+
             while(getline(file, line)){
                 vendorNum++;
             }
+
+            file.close();
             int id[vendorNum];
             string* vendorName = new string[vendorNum];
-            file.close();
 
             file.open("Menu/listVendor.txt", ios::in);
+
             for(int i=0; i<vendorNum; i++){
                 getline(file, line, ' ');
                 id[i] = stoi(line);
@@ -212,6 +221,7 @@ class MenuItem{
             string line;
 
             file.open("Menu/"+vendor->getName()+".txt", ios::in);
+
             while(getline(file, line)){
                 foodNum++;
             }
@@ -241,7 +251,7 @@ class MenuItem{
 
         void VendorMenuInput(){
 
-            cout<<"VENDOR: "<<vendor->getName()<<endl; //check
+            // cout<<"VENDOR: "<<vendor->getName()<<endl; //check
             char choice = 'y';
             file.open("Menu/"+vendor->getName()+".txt", ios::out);
             for(int i = 0 ; choice == 'y' || choice == 'Y'; i++)
@@ -351,84 +361,14 @@ class OrderItem
         }
 };
 
-class Order {
-private:
-    int order_id;
-    string items[10];  // Assuming a maximum of 10 items per order
-    string customer;
-    bool is_paid;
-    bool is_fulfilled;
-    int num_items;     // Track the number of items in the order
-
-public:
-    Order(){
-
-    }
-
-    void mark_as_paid() {
-        is_paid = true;
-    }
-
-    void mark_as_fulfilled() {
-        is_fulfilled = true;
-    }
-
-    void generate_receipt() {
-        // Generate receipt logic goes here
-    }
-
-    void notify_vendor() {
-        // Vendor notification logic goes here
-    }
-};
-
-
-void displayLogo(){
-    cout<<"+===============================================================+"<<endl
-        <<"|   _   _   _____   __    __    _____   _____   _____   ____    |"<<endl
-        <<"|  | | | | |_   _| |  \\  /  |  /  ___| /  _  \\ /  _  \\ |  _ \\   |"<<endl
-        <<"|  | | | |   | |   |   \\/   |  | |__   | | | | | | | | | | | |  |"<<endl
-        <<"|  | |_| |   | |   | |\\  /| |  |  __|  | |_| | | |_| | | |_| |  |"<<endl
-        <<"|  |_____|   |_|   |_| \\/ |_|  |_|     \\_____/ \\_____/ |____/   |"<<endl
-        <<"|                                                               |"<<endl
-        <<"+===============================================================+"<<endl
-        <<endl;
-}
-
-void displayLogo2(){
-    cout << "                     ,----,    " << endl;
-    cout << "                   ,/   .`|        ____                ,----..       ,----..           " << endl;
-    cout << "                 ,`   .'  :      ,'  , `.    ,---,.   /   /   \\     /   /   \\      ,---, " << endl;
-    cout << "         ,--,  ;    ;     /   ,-+-,.' _ |  ,'  .' |  /   .     :   /   .     :   .'  .' `\\ " << endl;
-    cout << "       ,'_ /|.____,/    ,' ,-+-. ;   , ||,---.'   | .   /   ;.  \\ .   /   ;.  \\,---.'     \\ " << endl;
-    cout << "  .--. |  | :|    :     | ,--.'|'   |  ;||   |   .'.   ;   /  ` ;.   ;   /  ` ;|   |  .`\\  | " << endl;
-    cout << ",'_ /| :  . |;    |.';  ;|   |  ,', |  '::   :  :  ;   |  ; \\ ; |;   |  ; \\ ; |:   : |  '  | " << endl;
-    cout << "|  ' | |  . .`----'  |  ||   | /  | |  ||:   |  |-,|   :  | ; | '|   :  | ; | '|   ' '  ;  : " << endl;
-    cout << "|  | ' |  | |    '   :  ;'   | :  | :  |,|   :  ;/|.   |  ' ' ' :.   |  ' ' ' :'   | ;  .  | " << endl;
-    cout << ":  | | :  ' ;    |   |  ';   . |  ; |--' |   |   .''   ;  \\; /  |'   ;  \\; /  ||   | :  |  ' " << endl;
-    cout << "|  ; ' |  | '    '   :  ||   : |  | ,    '   :  '   \\   \\  ',  /  \\   \\  ',  / '   : | /  ;  " << endl;
-    cout << ":  | : ;  ; |    ;   |.' |   : '  |/     |   |  |    ;   :    /    ;   :    /  |   | '` ,/   " << endl;
-    cout << "'  :  `--'   \\   '---'   ;   | |`-'      |   :  \\     \\   \\ .'      \\   \\ .'   ;   :  .'    " << endl;
-    cout << ":  ,      .-./           |   ;/          |   | ,'      `---`         `---`     |   ,.'      " << endl;
-    cout << " `--`----'               '---'           `----'                                '---'          " << endl;
-}
-
-void displayLogo3(){
-    cout << "ooooo     ooo ooooooooooooo ooo        ooooo oooooooooooo   .oooooo.     .oooooo.   oooooooooo." << endl;
-    cout << "`888'     `8' 8'   888   `8 `88.       .888' `888'     `8  d8P'  `Y8b   d8P'  `Y8b  `888'   `Y8b" << endl;
-    cout << " 888       8       888       888b     d'888   888         888      888 888      888  888      888" << endl;
-    cout << " 888       8       888       8 Y88. .P  888   888oooo8    888      888 888      888  888      888" << endl;
-    cout << " 888       8       888       8  `888'   888   888    \"    888      888 888      888  888      888" << endl;
-    cout << " `88.    .8'       888       8    Y     888   888         `88b    d88' `88b    d88'  888     d88'" << endl;
-    cout << "   `YbodP'        o888o     o8o        o888o o888o         `Y8bood8P'   `Y8bood8P'  o888bood8P'" << endl;
-}
-
 void displayLogo4(){
-    cout << " _   _ _____ __  __ _____ ___   ___  ____  " << endl;
-    cout << "| | | |_   _|  \\/  |  ___/ _ \\ / _ \\|  _ \\ " << endl;
-    cout << "| | | | | | | |\\/| | |_ | | | | | | | | | |" << endl;
-    cout << "| |_| | | | | |  | |  _|| |_| | |_| | |_| |" << endl;
-    cout << " \\___/  |_| |_|  |_|_|   \\___/ \\___/|____/ " << endl;
+    cout << "+=============================================+"<<endl;
+    cout << "|  _   _ _____ __  __ _____ ___   ___  ____   |" << endl;
+    cout << "| | | | |_   _|  \\/  |  ___/ _ \\ / _ \\|  _ \\  |" << endl;
+    cout << "| | | | | | | | |\\/| | |_ | | | | | | | | | | |" << endl;
+    cout << "| | |_| | | | | |  | |  _|| |_| | |_| | |_| | |" << endl;
+    cout << "|  \\___/  |_| |_|  |_|_|   \\___/ \\___/|____/  |" << endl;
+    cout << "+=============================================+"<<endl<<endl;
 }
 
 
@@ -440,8 +380,11 @@ int main(){
     // MenuItem MenuItem();
     int choice;
 
+    system("CLS");
     displayLogo4();
-    cout<<"|| Menu"<<endl
+    cout<<"+==================+"<<endl
+        <<" Menu"<<endl
+        <<"+==================+"<<endl
         <<"1. Registration"<<endl
         <<"2. Log In"<<endl
         <<"Enter choice: ";
@@ -451,7 +394,9 @@ int main(){
 
         system("CLS");
         displayLogo4();
-        cout<<"|| Registration"<<endl
+        cout<<"+==================+"<<endl
+            <<" Registration"<<endl
+            <<"+==================+"<<endl
             <<"1. Customer"<<endl
             <<"2. Vendor"<<endl
             <<"Enter choice: ";
@@ -472,7 +417,9 @@ int main(){
 
         system("CLS");
         displayLogo4();
-        cout<<"|| Sign In"<<endl
+        cout<<"+==================+"<<endl
+            <<" Sign In"<<endl
+            <<"+==================+"<<endl
             <<"1. Customer"<<endl
             <<"2. Vendor"<<endl
             <<"Enter choice: ";

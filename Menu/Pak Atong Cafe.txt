@@ -1,2 +1,2 @@
-1,nasi goreng,5.5
-2,nasi lemak,6.5
+1,Nasi Lemak Buttermilk,6.5
+2,Nasi Lemak Ayam,6.0

@@ -1,1 +1,4 @@
-1,teh o ais,1.5
+1,Teh Ais,2
+2,Teh O Ais,1.5
+3,Nescafe Ais,2
+4,Milo Ais,2

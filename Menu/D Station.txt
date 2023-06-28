@@ -1,2 +1,3 @@
-1,nasi lemak,5.5
-2,nasi kerabu,6.5
+1,Bakso,5.5
+2,Nasi Lemak Ayam,5.5
+3,Nasi Ayam Penyet,6.0

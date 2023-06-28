@@ -1,3 +1,0 @@
-1,Nasi Lemak,3.4
-2,Nasi Goreng Ayam,6.5
-3,Bakso,4.5
